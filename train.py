@@ -16,7 +16,7 @@ BATCH_SIZE = 1
 LEARNING_RATE = 2e-4
 OPTIM_BETAS = (0.5, 0.999)
 
-NOISE = 520
+NOISE = 100
 
 MODEL_PATH = 'models/'
 MODEL_D = 'D.pth'
@@ -30,7 +30,7 @@ if not os.path.exists(WORK_DIR + '/' + 'gen'):
     os.makedirs(WORK_DIR + '/' + 'gen')
 
 transform = transforms.Compose([
-    transforms.Resize(256),
+    transforms.Resize(64),
     transforms.ToTensor()
 ])
 
@@ -119,9 +119,9 @@ def main():
                   f"D(x): {real_score:.4f}, "
                   f"D(G(z)): {fake_score_z1:.4f} / {fake_score_z2:.4f}.")
 
-            images = images.reshape(images.size(0), 3, 256, 256)
+            images = images.reshape(images.size(0), 3, 64, 64)
             torchvision.utils.save_image(images, WORK_DIR + '/' + 'gen' + '/' + 'real' + '.jpg')
-            fake_images = fake.reshape(images.size(0), 3, 256, 256)
+            fake_images = fake.reshape(images.size(0), 3, 64, 64)
             torchvision.utils.save_image(fake_images, WORK_DIR + '/' + 'gen' + '/' + str(step) + '.jpg')
 
         # Save the model checkpoint
