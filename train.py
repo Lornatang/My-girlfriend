@@ -11,8 +11,8 @@ from net import Discriminator, Generator
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 WORK_DIR = './data/'
-NUM_EPOCHS = 500
-BATCH_SIZE = 1
+NUM_EPOCHS = 10000
+BATCH_SIZE = 5
 LEARNING_RATE = 2e-4
 OPTIM_BETAS = (0.5, 0.999)
 
@@ -119,10 +119,11 @@ def main():
                   f"D(x): {real_score:.4f}, "
                   f"D(G(z)): {fake_score_z1:.4f} / {fake_score_z2:.4f}.")
 
-            images = images.reshape(images.size(0), 3, 64, 64)
-            torchvision.utils.save_image(images, WORK_DIR + '/' + 'gen' + '/' + 'real' + '.jpg')
-            fake_images = fake.reshape(images.size(0), 3, 64, 64)
-            torchvision.utils.save_image(fake_images, WORK_DIR + '/' + 'gen' + '/' + str(step) + '.jpg')
+            if step % 50 == 0:
+                images = images.reshape(images.size(0), 3, 64, 64)
+                torchvision.utils.save_image(images, WORK_DIR + '/' + 'gen' + '/' + 'real' + '.jpg')
+                fake_images = fake.reshape(images.size(0), 3, 64, 64)
+                torchvision.utils.save_image(fake_images, WORK_DIR + '/' + 'gen' + '/' + str(step) + '.jpg')
 
         # Save the model checkpoint
         torch.save(D, MODEL_PATH + MODEL_D)
