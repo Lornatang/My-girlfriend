@@ -11,12 +11,12 @@ from net import Discriminator, Generator
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 WORK_DIR = './data/'
-NUM_EPOCHS = 10000
-BATCH_SIZE = 5
+NUM_EPOCHS = 300
+BATCH_SIZE = 4
 LEARNING_RATE = 2e-4
 OPTIM_BETAS = (0.5, 0.999)
 
-NOISE = 100
+NOISE = 500
 
 MODEL_PATH = 'models/'
 MODEL_D = 'D.pth'
@@ -30,7 +30,7 @@ if not os.path.exists(WORK_DIR + '/' + 'gen'):
     os.makedirs(WORK_DIR + '/' + 'gen')
 
 transform = transforms.Compose([
-    transforms.Resize(64),
+    transforms.Resize(1024),
     transforms.ToTensor()
 ])
 
