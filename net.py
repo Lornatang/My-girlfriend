@@ -62,8 +62,29 @@ class Discriminator(nn.Module):
             nn.BatchNorm2d(64 * 8),
             nn.LeakyReLU(0.2, True)
         )
+        self.layer5 = nn.Sequential(
+            nn.Conv2d(64 * 8, 64 * 16, kernel_size=4, stride=2, padding=1, bias=False),
+            nn.BatchNorm2d(64 * 16),
+            nn.LeakyReLU(0.2, True)
+        )
+        self.layer6 = nn.Sequential(
+            nn.Conv2d(64 * 16, 64 * 32, kernel_size=4, stride=2, padding=1, bias=False),
+            nn.BatchNorm2d(64 * 32),
+            nn.LeakyReLU(0.2, True)
+        )
+        self.layer7 = nn.Sequential(
+            nn.Conv2d(64 * 32, 64 * 64, kernel_size=4, stride=2, padding=1, bias=False),
+            nn.BatchNorm2d(64 * 64),
+            nn.LeakyReLU(0.2, True)
+        )
+        self.layer8 = nn.Sequential(
+            nn.Conv2d(64 * 64, 64 * 128, kernel_size=4, stride=2, padding=1, bias=False),
+            nn.BatchNorm2d(64 * 128),
+            nn.LeakyReLU(0.2, True)
+        )
+
         self.classifier = nn.Sequential(
-            nn.Conv2d(64 * 8, 1, kernel_size=4, stride=1, padding=0, bias=False),
+            nn.Conv2d(64 * 128, 1, kernel_size=4, stride=1, padding=0, bias=False),
             nn.Sigmoid()
         )
 
@@ -72,6 +93,10 @@ class Discriminator(nn.Module):
         x = self.layer2(x)
         x = self.layer3(x)
         x = self.layer4(x)
+        x = self.layer5(x)
+        x = self.layer6(x)
+        x = self.layer7(x)
+        x = self.layer8(x)
         x = self.classifier(x)
         out = x.view(-1, 1).squeeze(1)
         return out
