@@ -16,7 +16,7 @@ BATCH_SIZE = 4
 LEARNING_RATE = 2e-4
 OPTIM_BETAS = (0.5, 0.999)
 
-NOISE = 500
+NOISE = 100
 
 MODEL_PATH = 'models/'
 MODEL_D = 'D.pth'
