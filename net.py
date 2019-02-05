@@ -25,6 +25,25 @@ class Generator(nn.Module):
             nn.BatchNorm2d(64),
             nn.ReLU(True)
         )
+        self.layer1 = nn.Sequential(
+            nn.ConvTranspose2d(noise, 64 * 8, kernel_size=4, stride=1, padding=0, bias=False),
+            nn.ReLU(True)
+        )
+        self.layer2 = nn.Sequential(
+            nn.ConvTranspose2d(64 * 8, 64 * 4, kernel_size=4, stride=2, padding=1, bias=False),
+            nn.BatchNorm2d(64 * 4),
+            nn.ReLU(True)
+        )
+        self.layer3 = nn.Sequential(
+            nn.ConvTranspose2d(64 * 4, 64 * 2, kernel_size=4, stride=2, padding=1, bias=False),
+            nn.BatchNorm2d(64 * 2),
+            nn.ReLU(True)
+        )
+        self.layer4 = nn.Sequential(
+            nn.ConvTranspose2d(64 * 2, 64, kernel_size=4, stride=2, padding=1, bias=False),
+            nn.BatchNorm2d(64),
+            nn.ReLU(True)
+        )
         self.classifier = nn.Sequential(
             nn.ConvTranspose2d(64, 3, kernel_size=4, stride=2, padding=1, bias=False),
             nn.Tanh()
@@ -35,6 +54,10 @@ class Generator(nn.Module):
         x = self.layer2(x)
         x = self.layer3(x)
         x = self.layer4(x)
+        x = self.layer5(x)
+        x = self.layer6(x)
+        x = self.layer7(x)
+        x = self.layer8(x)
         x = self.classifier(x)
         return x
 
