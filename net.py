@@ -7,7 +7,7 @@ class Generator(nn.Module):
   def __init__(self, noise=NOISE):
     super(Generator, self).__init__()
     self.layer1 = nn.Sequential(
-      nn.ConvTranspose2d(64 * 16, 64 * 8, kernel_size=4, stride=2, padding=1, bias=False),
+      nn.ConvTranspose2d(noise, 64 * 8, kernel_size=4, stride=1, padding=0, bias=False),
       nn.BatchNorm2d(64 * 8),
       nn.ReLU(True)
     )
