@@ -120,7 +120,7 @@ def main():
                   f"D(x): {real_score:.4f}, "
                   f"D(G(z)): {fake_score_z1:.4f} / {fake_score_z2:.4f}.")
 
-            if step % 5 == 0:
+            if step % 100 == 0:
                 images = images.reshape(images.size(0), 3, 64, 64)
                 torchvision.utils.save_image(images, './' + 'gen' + '/' + 'real' + '.jpg')
                 fake_images = fake.reshape(images.size(0), 3, 64, 64)
