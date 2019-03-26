@@ -26,12 +26,13 @@ MODEL_G = 'G.pth'
 if not os.path.exists(MODEL_PATH):
     os.makedirs(MODEL_PATH)
 
-if not os.path.exists(WORK_DIR + '/' + 'gen'):
-    os.makedirs(WORK_DIR + '/' + 'gen')
+if not os.path.exists('./' + 'gen'):
+    os.makedirs('./' + 'gen')
 
 transform = transforms.Compose([
     transforms.Resize(64),
-    transforms.ToTensor()
+    transforms.ToTensor(),
+    transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
 ])
 
 to_pil_image = transforms.ToPILImage()
@@ -121,9 +122,9 @@ def main():
 
             if step % 5 == 0:
                 images = images.reshape(images.size(0), 3, 64, 64)
-                torchvision.utils.save_image(images, WORK_DIR + '/' + 'gen' + '/' + 'real' + '.jpg')
+                torchvision.utils.save_image(images, './' + 'gen' + '/' + 'real' + '.jpg')
                 fake_images = fake.reshape(images.size(0), 3, 64, 64)
-                torchvision.utils.save_image(fake_images, WORK_DIR + '/' + 'gen' + '/' + str(step) + '.jpg')
+                torchvision.utils.save_image(fake_images, './' + 'gen' + '/' + str(step) + '.jpg')
 
         # Save the model checkpoint
         torch.save(D, MODEL_PATH + MODEL_D)
