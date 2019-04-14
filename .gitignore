@@ -5,3 +5,6 @@ __pycache__
 data/
 models/
 gen/
+*.jpg
+*.pth
+*.png
